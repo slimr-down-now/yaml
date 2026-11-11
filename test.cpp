@@ -1,6 +1,6 @@
 #define SLIMR_TEST_MAIN
-#include "slimr/test.hpp"
-#include "slimr/yaml.hpp"
+#include "test.hpp"
+#include "yaml.hpp"
 
 using namespace slimr;
 
@@ -12,6 +12,12 @@ struct YamlConfig {
 };
 
 TEST_SUITE("slimr::yaml") {
+    TEST_CASE("malformed YAML returns an error instead of terminating") {
+        auto result = parse_yaml("items: [unterminated");
+        REQUIRE_FALSE(result.has_value());
+        CHECK(result.error().find("YAML parse error:") != std::string::npos);
+    }
+
     TEST_CASE("parse_yaml basic values and structures") {
         std::string yaml_doc = R"(
 name: slimr-yaml

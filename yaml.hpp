@@ -6,25 +6,12 @@
 #ifndef RYML_WITH_LEGACY_OPERATORS
 #define RYML_WITH_LEGACY_OPERATORS
 #endif
-#if __has_include(<ryml/ryml_all.hpp>)
+#ifndef RYML_DEFAULT_CALLBACK_USES_EXCEPTIONS
+// The wrapper translates parse failures to std::expected, not process aborts.
+#define RYML_DEFAULT_CALLBACK_USES_EXCEPTIONS
+#endif
 #include <ryml/ryml_all.hpp>
-#elif __has_include("ryml/ryml_all.hpp")
-#include "ryml/ryml_all.hpp"
-#elif __has_include("../../../vendor/ryml/ryml_all.hpp")
-#include "../../../vendor/ryml/ryml_all.hpp"
-#elif __has_include("../../../../vendor/ryml/ryml_all.hpp")
-#include "../../../../vendor/ryml/ryml_all.hpp"
-#elif __has_include("../../../../../vendor/ryml/ryml_all.hpp")
-#include "../../../../../vendor/ryml/ryml_all.hpp"
-#else
-#include "ryml_all.hpp"
-#endif
-
-#if __has_include("slimr/json.hpp")
-#include "slimr/json.hpp"
-#else
 #include "json.hpp"
-#endif
 #include <expected>
 #include <optional>
 #include <string>

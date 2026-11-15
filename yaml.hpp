@@ -7,10 +7,10 @@
 // The wrapper translates parse failures to std::expected, not process aborts.
 #define RYML_DEFAULT_CALLBACK_USES_EXCEPTIONS
 #endif
-#include <ryml/ryml_all.hpp>
 #include "json.hpp"
 #include <expected>
 #include <optional>
+#include <ryml/ryml_all.hpp>
 #include <string>
 #include <string_view>
 
@@ -27,7 +27,8 @@ inline Json ryml_node_to_json(ryml::ConstNodeRef node) {
         return Json{nullptr};
     }
     if (node.is_stream()) {
-        if (node.num_children() == 0) return Json{nullptr};
+        if (node.num_children() == 0)
+            return Json{nullptr};
         return ryml_node_to_json(node.first_child());
     }
     if (node.is_val() || node.is_keyval()) {
@@ -50,7 +51,7 @@ inline Json ryml_node_to_json(ryml::ConstNodeRef node) {
             res.data = false;
             return res;
         }
-        char* endptr = nullptr;
+        char *endptr = nullptr;
         std::string s(sv);
         long long iv = std::strtoll(s.c_str(), &endptr, 10);
         if (endptr && *endptr == '\0' && !s.empty()) {
@@ -87,7 +88,7 @@ inline Json ryml_node_to_json(ryml::ConstNodeRef node) {
     return Json{nullptr};
 }
 
-inline void json_to_ryml_node(const Json& j, ryml::NodeRef node) {
+inline void json_to_ryml_node(const Json &j, ryml::NodeRef node) {
     if (j.is_null()) {
         node |= ryml::VAL;
         node.set_val("null");
@@ -100,7 +101,7 @@ inline void json_to_ryml_node(const Json& j, ryml::NodeRef node) {
         node.set_val(tree_copy_str(node, s));
     } else if (j.is_string()) {
         node |= ryml::VAL;
-        const auto& str = j.get<std::string>();
+        const auto &str = j.get<std::string>();
         node.set_val(tree_copy_str(node, str));
         if (str.empty() || str == "null" || str == "true" || str == "false" || str == "~" ||
             str.find(':') != std::string::npos || str.find('#') != std::string::npos ||
@@ -109,13 +110,13 @@ inline void json_to_ryml_node(const Json& j, ryml::NodeRef node) {
         }
     } else if (j.is_array()) {
         node |= ryml::SEQ;
-        for (const auto& elem : j.get<Json::array_t>()) {
+        for (const auto &elem : j.get<Json::array_t>()) {
             ryml::NodeRef child = node.append_child();
             json_to_ryml_node(elem, child);
         }
     } else if (j.is_object()) {
         node |= ryml::MAP;
-        for (const auto& [k, v] : j.get<Json::object_t>()) {
+        for (const auto &[k, v] : j.get<Json::object_t>()) {
             ryml::NodeRef child = node.append_child();
             child.set_key(tree_copy_str(child, k));
             json_to_ryml_node(v, child);
@@ -136,20 +137,21 @@ inline std::expected<T, std::string> parse_yaml(std::string_view yaml_str) {
         } else {
             return parse_json<T>(to_json(j));
         }
-    } catch (const std::exception& e) {
+    } catch (const std::exception &e) {
         return std::unexpected(std::string("YAML parse error: ") + e.what());
     }
 }
 
 /// Serializes a slimr::Json value or C++ struct T to a YAML string
 template <typename T>
-inline std::string to_yaml(const T& val) {
+inline std::string to_yaml(const T &val) {
     Json j;
     if constexpr (std::is_same_v<std::decay_t<T>, Json>) {
         j = val;
     } else {
         auto parsed = parse_json<Json>(to_json(val));
-        if (parsed) j = std::move(*parsed);
+        if (parsed)
+            j = std::move(*parsed);
     }
     ryml::Tree tree;
     ryml::NodeRef root = tree.rootref();
@@ -174,8 +176,10 @@ inline std::expected<FrontmatterSplit, std::string> parse_frontmatter(std::strin
         return std::unexpected("Unclosed YAML frontmatter delimiter");
     }
     size_t after_close = close + 4;
-    if (after_close < markdown.size() && markdown[after_close] == '\r') after_close++;
-    if (after_close < markdown.size() && markdown[after_close] == '\n') after_close++;
+    if (after_close < markdown.size() && markdown[after_close] == '\r')
+        after_close++;
+    if (after_close < markdown.size() && markdown[after_close] == '\n')
+        after_close++;
     std::string_view yaml_part = markdown.substr(start, close - start);
     auto parsed = parse_yaml<Json>(yaml_part);
     if (!parsed) {

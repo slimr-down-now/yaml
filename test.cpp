@@ -29,7 +29,7 @@ tags:
 )";
         auto res = parse_yaml<Json>(yaml_doc);
         REQUIRE(res.has_value());
-        const Json& j = *res;
+        const Json &j = *res;
         CHECK(j["name"].get<std::string>() == "slimr-yaml");
         CHECK(j["port"].get<int64_t>() == 9000);
         CHECK(j["enabled"].get<bool>() == true);

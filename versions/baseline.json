@@ -1,0 +1,8 @@
+{
+  "default": {
+    "slimr-yaml": {
+      "baseline": "0.1.1",
+      "port-version": 0
+    }
+  }
+}

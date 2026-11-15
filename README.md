@@ -72,13 +72,31 @@ Hello world!
 | `FrontmatterSplit` | `struct FrontmatterSplit { std::optional<Json> frontmatter; std::string raw_frontmatter; std::string body; };` | Result structure containing parsed frontmatter and markdown body. |
 | `parse_frontmatter` | `inline std::expected<FrontmatterSplit, std::string> parse_frontmatter(std::string_view markdown)` | Splits Markdown with `---` YAML frontmatter into `{ frontmatter, body }`. |
 
-## Build & Test
+## Install
 
-This folder owns its header, `test.cpp`, CMake target/config, manifest, port recipe and licenses. See the [integration guide](../../README.md#integration-vcpkg--cmakeninja).
+Add `bdombro/slimr-yaml` to `vcpkg-configuration.json`:
 
-```bash
-just test-pkg yaml  # From the repository root; automatic native deps + ASan/UBSan
-just build         # All optimized Release suites
+```json
+{
+  "kind": "git",
+  "repository": "https://github.com/bdombro/slimr-yaml",
+  "baseline": "<commit-sha>",
+  "packages": [
+    "slimr-yaml"
+  ]
+}
 ```
 
-Generated output stays under root `build/deps/` and `build/cmake/{Debug,Release}/`. Consumers link `slimr::yaml` from `find_package(slimr-yaml CONFIG REQUIRED)`. Linking `slimr::yaml` compiles `yaml_impl.cpp` once per target so multiple translation units can include `yaml.hpp` without duplicate RapidYAML symbols (non-CMake builds must define `RYML_SINGLE_HDR_DEFINE_NOW` in exactly one translation unit). The optional manifest `tests` feature keeps test dependencies out of production consumption.
+Declare `slimr-yaml` in `vcpkg.json` and link `slimr::yaml` in `CMakeLists.txt`:
+
+```cmake
+find_package(slimr-yaml CONFIG REQUIRED)
+target_link_libraries(my_target PRIVATE slimr::yaml)
+```
+
+## Build & Test
+
+```bash
+just test   # Debug build (ASan + UBSan) and run tests
+just build  # Optimized Release build
+```

@@ -1,0 +1,22 @@
+{
+  "name": "slimr-yaml",
+  "version": "0.1.1",
+  "description": "Header-only YAML parsing and frontmatter",
+  "dependencies": [
+    {
+      "name": "slimr-json",
+      "version>=": "0.1.1"
+    }
+  ],
+  "features": {
+    "tests": {
+      "description": "Dependencies for the standalone test suite",
+      "dependencies": [
+        {
+          "name": "slimr-test",
+          "version>=": "0.1.1"
+        }
+      ]
+    }
+  }
+}

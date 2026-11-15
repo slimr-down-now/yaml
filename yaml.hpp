@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef RYML_SINGLE_HDR_DEFINE_NOW
-#define RYML_SINGLE_HDR_DEFINE_NOW
-#endif
 #ifndef RYML_WITH_LEGACY_OPERATORS
 #define RYML_WITH_LEGACY_OPERATORS
 #endif

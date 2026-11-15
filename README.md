@@ -81,4 +81,4 @@ just test-pkg yaml  # From the repository root; automatic native deps + ASan/UBS
 just build         # All optimized Release suites
 ```
 
-Generated output stays under root `build/deps/` and `build/cmake/{Debug,Release}/`. Consumers link `slimr::yaml` from `find_package(slimr-yaml CONFIG REQUIRED)`. The optional manifest `tests` feature keeps test dependencies out of production consumption.
+Generated output stays under root `build/deps/` and `build/cmake/{Debug,Release}/`. Consumers link `slimr::yaml` from `find_package(slimr-yaml CONFIG REQUIRED)`. Linking `slimr::yaml` compiles `yaml_impl.cpp` once per target so multiple translation units can include `yaml.hpp` without duplicate RapidYAML symbols (non-CMake builds must define `RYML_SINGLE_HDR_DEFINE_NOW` in exactly one translation unit). The optional manifest `tests` feature keeps test dependencies out of production consumption.

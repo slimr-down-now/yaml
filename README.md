@@ -13,12 +13,12 @@ Borrowed directly from the design of [`@slimr/yaml`](https://www.npmjs.com/packa
 
 ## Install
 
-Add `bdombro/slimr-yaml` to `vcpkg-configuration.json`:
+Add `slimr-down-now/yaml` to `vcpkg-configuration.json`:
 
 ```json
 {
   "kind": "git",
-  "repository": "https://github.com/bdombro/slimr-yaml",
+  "repository": "https://github.com/slimr-down-now/yaml",
   "baseline": "<commit-sha>",
   "packages": [
     "slimr-yaml"

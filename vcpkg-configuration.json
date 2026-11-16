@@ -6,7 +6,7 @@
   "registries": [
     {
       "kind": "git",
-      "repository": "https://github.com/bdombro/slimr-test",
+      "repository": "https://github.com/slimr-down-now/test",
       "baseline": "6b5d99b91c631687aeca740ea0848d471418015c",
       "packages": [
         "slimr-test"
@@ -14,7 +14,7 @@
     },
     {
       "kind": "git",
-      "repository": "https://github.com/bdombro/slimr-json",
+      "repository": "https://github.com/slimr-down-now/json",
       "baseline": "d21bdc0f61e052053c76b95e57eb230910027006",
       "packages": [
         "slimr-json"

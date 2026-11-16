@@ -1,0 +1,3 @@
+build/**
+vendor/**
+ports/slimr-yaml/vendor/**

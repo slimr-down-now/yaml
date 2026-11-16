@@ -1,0 +1,7 @@
+# Pending lint follow-ups (enable one check per reviewed commit):
+#   -bugprone-unchecked-optional-access (2 findings)
+#   -bugprone-exception-escape (1 finding)
+Checks: '-*,clang-analyzer-core.*,clang-analyzer-cplusplus.*,bugprone-*,-bugprone-easily-swappable-parameters,-bugprone-signed-bitwise,-bugprone-throwing-static-initialization,-bugprone-reserved-identifier,-bugprone-branch-clone,-bugprone-macro-parentheses,-bugprone-lambda-function-name,-bugprone-std-exception-baseclass,-bugprone-switch-missing-default-case,-bugprone-argument-comment,-bugprone-unintended-char-ostream-output,-bugprone-unchecked-optional-access,-bugprone-exception-escape'
+WarningsAsErrors: '*'
+HeaderFilterRegex: '[/\\](src|tests)[/\\]'
+SystemHeaders: false

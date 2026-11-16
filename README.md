@@ -1,4 +1,4 @@
-# slimr::yaml (`packages/yaml`)
+# slimr::yaml
 
 Fast, robust C++26 YAML parsing and serialization library built on top of [RapidYAML (ryml)](https://github.com/biojppm/rapidyaml) and `slimr::json`, featuring `std::expected` error handling and Markdown frontmatter extraction.
 
@@ -11,7 +11,27 @@ Borrowed directly from the design of [`@slimr/yaml`](https://www.npmjs.com/packa
 - **Markdown Frontmatter Support:** Built-in `parse_frontmatter()` helper for extracting and parsing YAML frontmatter blocks (`--- ... ---`) from Markdown documents.
 - **Clean `std::expected` Errors:** Catches exceptions and reports descriptive error messages without crashing.
 
----
+## Install
+
+Add `bdombro/slimr-yaml` to `vcpkg-configuration.json`:
+
+```json
+{
+  "kind": "git",
+  "repository": "https://github.com/bdombro/slimr-yaml",
+  "baseline": "<commit-sha>",
+  "packages": [
+    "slimr-yaml"
+  ]
+}
+```
+
+Declare `slimr-yaml` in `vcpkg.json` and link `slimr::yaml` in `CMakeLists.txt`:
+
+```cmake
+find_package(slimr-yaml CONFIG REQUIRED)
+target_link_libraries(my_target PRIVATE slimr::yaml)
+```
 
 ## Quick Start
 
@@ -72,31 +92,12 @@ Hello world!
 | `FrontmatterSplit` | `struct FrontmatterSplit { std::optional<Json> frontmatter; std::string raw_frontmatter; std::string body; };` | Result structure containing parsed frontmatter and markdown body. |
 | `parse_frontmatter` | `inline std::expected<FrontmatterSplit, std::string> parse_frontmatter(std::string_view markdown)` | Splits Markdown with `---` YAML frontmatter into `{ frontmatter, body }`. |
 
-## Install
+## Environment Variables
 
-Add `bdombro/slimr-yaml` to `vcpkg-configuration.json`:
+| Name | Required | Purpose |
+| --- | --- | --- |
+| *(none)* | — | — |
 
-```json
-{
-  "kind": "git",
-  "repository": "https://github.com/bdombro/slimr-yaml",
-  "baseline": "<commit-sha>",
-  "packages": [
-    "slimr-yaml"
-  ]
-}
-```
+## Development
 
-Declare `slimr-yaml` in `vcpkg.json` and link `slimr::yaml` in `CMakeLists.txt`:
-
-```cmake
-find_package(slimr-yaml CONFIG REQUIRED)
-target_link_libraries(my_target PRIVATE slimr::yaml)
-```
-
-## Build & Test
-
-```bash
-just test   # Debug build (ASan + UBSan) and run tests
-just build  # Optimized Release build
-```
+See [docs/development.md](docs/development.md) for building, testing, linting, and releasing.

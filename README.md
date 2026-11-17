@@ -103,7 +103,7 @@ export VCPKG_OVERLAY_PORTS=~/.vcpkg/overlays/dev
 just test
 ```
 
-Remove the symlink (or `unset VCPKG_OVERLAY_PORTS`) to build against the released lib again. Keep the export out of shell startup files. `just release` refuses to run while `VCPKG_OVERLAY_PORTS` is set.
+Remove the symlink (or `unset VCPKG_OVERLAY_PORTS`) to build against the released lib again. Keep the export out of shell startup files.
 
 ## Environment Variables
 
@@ -113,4 +113,4 @@ Remove the symlink (or `unset VCPKG_OVERLAY_PORTS`) to build against the release
 
 ## Development
 
-See [docs/development.md](docs/development.md) for building, testing, linting, and releasing.
+See [docs/contributing.md](docs/contributing.md) for building, testing, linting, and releasing.
